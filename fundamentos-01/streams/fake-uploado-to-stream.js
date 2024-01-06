@@ -1,5 +1,6 @@
 
-import { Readable, Writable, Transform} from 'node:stream' 
+
+import { Readable } from 'node:stream' 
 
 
 class OneToHundredStream extends Readable {
@@ -20,11 +21,8 @@ class OneToHundredStream extends Readable {
     }
 }
 
-class InverseNumberStream extends transform {
-    _transform(chunk, encoding, callback) {
-        const transformed = Number(chunk.toString()) * 1
 
-        callback(null, Buffer.from(String(transformed)))
-    }
-}
-
+fetch('http://localhost:3334', {
+    method: 'POST',
+    body: new OneToHundredStream(),
+})
